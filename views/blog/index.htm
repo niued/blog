@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title><% if(config.title_name){%><%= config.title_name%><%}%></title>
+		<meta name="description" content="niued.com,阿拉神丁的个人站点,关注用户体验,专注于前端开发,nodejs开发。" />
+    	<meta name="keywords" content="HTML,HTML5,CSS,CSS3,JavaScript,jQuery,前端,F2E,NODEJS" />
+		<link rel="stylesheet" type="text/css" href="/base.css" />
+		<link rel="stylesheet" type="text/css" href="/common.css" />
+		<link rel="stylesheet" type="text/css" href="/blog.css" />
+		<script type="text/javascript" src="/js/jquery.js"></script>
+	</head>
+	<body >	
+		<%- partial('module/nav',{currNav:2}) %>
+		<div id="slides">
+			<section class="slides_container">
+				<% for(var i=0;i<imageart.length;i++){%>
+				<article class="slide">
+					<a href="/post<%= imageart[i]._id%>" title="<%= imageart[i].title%>" ><img src="<%= imageart[i].viewImage%>" width="960" height="200" alt="<%= imageart[i].title%>"></a>
+					<div class="caption" style="bottom:0">
+						<p><%= imageart[i].title%></p>
+					</div>
+				</article>
+				<%}%>
+			</section>
+			<a href="javascript:;" class="prev"><img src="/image/img/arrow-prev.png" width="24" height="43" alt="Arrow Prev"></a>
+			<a href="javascript:;" class="next"><img src="/image/img/arrow-next.png" width="24" height="43" alt="Arrow Next"></a>
+		</div>
+		
+		<div class="con11" style="margin:20px auto 0; ">
+			<section class="con8 fn-left">
+				<% for(var i=0;i<articles.length;i++){%>
+				<article class="article">
+					<header class="article-hd">
+						<h3><a href="/post<%= articles[i]._id%>" class="title"><%= articles[i].title%></a></h3>
+						<div class="article-info">
+							<p>发布时间：<%= common.format_date(articles[i].createTime)%> | 分类：<%= config.fieldList[articles[i].field?articles[i].field:0]%>	</p>
+						</div>
+					</header>
+				</article>
+				<%}%>
+				<%- partial('module/pagehelper',{total:totalCount,page:currentPage,base:"/blog_"}) %>
+			</section>
+			
+			<%- partial('module/aside') %>
+			<div class="fn-clear"></div>
+		</div>
+		<%- partial('module/footer') %>
+		
+		
+		<script type="text/javascript" src="/js/slides.min.jquery.js"></script>
+		<script>
+		$(function(){
+			$('#slides').slides({
+				preload: false,
+				preloadImage: 'img/loading.gif',
+				play: 5000,
+				pause: 2500,
+				slideSpeed:600,
+				pagination:false,
+				generatePagination:false,
+				hoverPause: true,
+				animationStart: function(current){
+					$('.caption').animate({
+						bottom:-35
+					},100);
+				},
+				animationComplete: function(current){
+					$('.caption').animate({
+						bottom:0
+					},200);
+				},
+				slidesLoaded: function() {
+					$('.caption').animate({
+						bottom:0
+					},200);
+				}
+			});
+		});
+		</script>	
+	</body>
+</html>

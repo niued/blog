@@ -1,0 +1,64 @@
+<style>
+.admin-nav{
+	background-color: #F5F5F5;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+    min-height: 20px;
+}
+.admin-nav .nav-list {
+    margin-bottom: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.admin-nav .nav-header {
+    color: #999999;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 18px;
+    padding: 3px 15px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+
+.nav-list > li > a, .nav-list .nav-header {
+    margin-left: -15px;
+    margin-right: -15px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.nav-list > li > a {
+    padding: 3px 15px;
+    display:block;
+}
+.nav-list > .active > a, .nav-list > .active > a:hover {
+    background-color: #0088CC;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+.nav-list > li > a:hover{
+	background-color: #eeeeee;
+    color: #333;
+}
+.nav-list .divider {
+    background-color: #E5E5E5;
+    border-bottom: 1px solid #FFFFFF;
+    height: 1px;
+    margin: 8px 1px;
+    overflow: hidden;
+}
+
+</style>
+<div class="admin-nav con2 fn-left">
+	<ul class="nav-list">
+      <li class="nav-header">文章</li>
+      <li <% if(navindex==1) { %> class="active" <% } %>><a href="/admin/article"><i class="icon-white icon-home"></i> 所有文章</a></li>
+      <li <% if(navindex==2) { %> class="active" <% } %>><a href="/admin/article/edit"><i class="icon-book"></i> 写文章</a></li>
+      <li class="nav-header">设置</li>
+      <li><a href="#"><i class="icon-user"></i> Profile</a></li>
+      <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
+      <li class="divider"></li>
+      <li><a href="#"><i class="icon-flag"></i> Help</a></li>
+    </ul>
+</div>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title><% if(config.title_name){%><%= config.title_name%><%}%></title>
+		<link rel="stylesheet" type="text/css" href="/base.css" />
+		<link rel="stylesheet" type="text/css" href="/common.css" />
+		<script type="text/javascript" src="/js/jquery.js"></script>
+	</head>
+	<body>
+		
+		<style>
+		html{
+			background: url("/image/glow.png") no-repeat scroll center center #0D7BD5;
+			height: 100%;
+		}
+		
+		#login{
+			width:450px;
+			margin:100px auto;
+		}
+		#login h3{
+			width:100px;
+			color:#FFFFFF;
+			font-family: "proxima-nova-extra-condensed-1","proxima-nova-extra-condensed-2","Helvetica Neue","Arial";
+			font-size: 50px;
+			font-weight: bold;
+			text-shadow: 3px 3px 2px #666666;
+		}
+		#form{
+			width:265px;
+		}
+		.text{
+			width:250px;
+			padding:10px 5px;
+			border:1px solid #ccc;
+			border-radius:5px;
+			box-shadow:0 1px 0 rgba(255, 255, 255, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3) inset;
+			margin:20px 0 0 0;
+			background:#E8F4FC;
+		}
+		.text:hover{
+			background:#FFFFFF;
+		}
+		.button{
+			background: none repeat scroll 0 0 rgba(0, 0, 0, 0.1);
+			border-radius: 50px 50px 50px 50px;
+			box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+			color: rgba(255, 255, 255, 0.8);
+			display: block;
+			font-size: 14px;
+			padding: 3px 25px;
+			margin:20px 0 0 0;
+			
+		}
+		
+		</style>
+		<%- partial('module/nav',{currNav:6}) %>
+		<div id="login">
+			<h3 class="fn-left">NIUED</h1>
+			<form id="form" class="fn-right" method="post" action="/admin/login">
+				<% if(error){%>
+				<label>
+					<%= error%>
+				</label>
+				<% }%>
+				<div>
+					<input type="text" name="loginname" class="text fn-right"/>
+				</div>
+				<div>
+					<input type="password" name="pass" class="text fn-right" />
+				</div>
+				<input type="submit" value="登录" class="button fn-left"  />
+			</form>
+		</div>
+		<div class="fn-clear"></div>
+	</body>
+</html>

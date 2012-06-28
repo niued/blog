@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<rss version="2.0">
+    <channel>
+        <title>我的博客</title>
+        <link>http://www.baidu.com</link>
+        <description>你好，我是谁</description>
+        <copyright>Copyright 2012，阿拉神丁</copyright>
+        <pubDate>Sat, 07 Sep 2012 00:00:01 GMT</pubDate>
+        <lastBuildDate>Sat, 07 Sep 2002 00:00:01 GMT</lastBuildDate>
+        <category>Newspapers</category>
+        <generator>MightyInHouse Content System v2.</generator>
+        <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+        <item>
+            <title>1111</title>
+            <link>http://www.baidu.com</link>
+            <description>你好啊。</description>
+            <author>nixed</author>
+            <category domain="optional, identifies a categorization taxonomy.">工</category>
+            <comments>子</comments>
+            <pubDate>Sun, 19 May 2002 15:21:36 GMT</pubDate>
+        </item>
+    </channel>
+</rss>

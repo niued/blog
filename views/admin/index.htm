@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title><% if(config.title_name){%><%= config.title_name%><%}%></title>
+		<link rel="stylesheet" type="text/css" href="/base.css" />
+		<link rel="stylesheet" type="text/css" href="/common.css" />
+	</head>
+	<body>
+		<%- partial('module/nav',{currNav:6}) %>
+		<style>
+		.content{
+			margin:0 auto;
+		}
+		
+		
+		.admin-con{
+		
+		}
+		.admin-con h3{
+			font:18px bold;
+			margin:10px;
+		}
+		.table{
+			width: 100%;
+		}
+		.table-bordered {
+			border-collapse: separate;
+			border-radius: 4px 4px 4px 4px;
+			border:1px solid #ddd;
+		}
+		.table th{
+			line-height: 18px;
+		    padding: 8px;
+		    text-align: center;
+		}
+		.table td {
+		    border-top: 1px solid #DDDDDD;
+		    line-height: 18px;
+		    padding: 8px;
+		    text-align: left;
+		    vertical-align: top;
+		}
+		.table td,.table th{
+			border-right:1px solid #ddd;
+		}
+		.table tr:nth-child(2n){
+			background:#F9F9F9;
+		}
+		</style>
+		<div class="con13 content">
+			<%- partial('module/adminnav',{navindex:1}) %>
+			<div class="admin-con con11 fn-right">
+				<h3 class="">文章</h3>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>标题</th>
+							<th>分类</th>
+							<th>状态</th>
+							<th>标签</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% for(var i=0;i<articles.length;i++){%>
+						<tr>
+							<td><%= articles[i].title%></td>
+							<td><%= config.fieldList[articles[i].field]%></td>
+							<td><%= articles[i].isPublic?"发布":"未发布"%></td>
+							<td>jquery</td>
+							<td><a href="/admin/article/edit<%= articles[i]._id%>">编辑</a>，删除</td>
+						</tr>
+						<%}%>
+					</tbody>
+				</table>
+				<%- partial('module/pagehelper',{total:totalCount,page:currentPage,base:"/admin/article_"}) %>
+			</div>
+		</div>
+	</body>
+</html>

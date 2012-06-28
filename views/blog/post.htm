@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta charset="UTF-8" />
+		<title><%= article!=null&&article.title?article.title+"--":""%><% if(config.title_name){%><%= config.title_name%><%}%></title>
+		<meta name="description" content="niued.com,阿拉神丁的个人站点,关注用户体验,专注于前端开发,nodejs开发。" />
+    	<meta name="keywords" content="<%= article!=null&&article.keyWord?article.keyWord+",":""%>HTML,HTML5,CSS,CSS3,JavaScript,jQuery,前端,F2E,NODEJS" />
+		<link rel="stylesheet" type="text/css" href="/base.css" />
+		<link rel="stylesheet" type="text/css" href="/common.css" />
+		<link rel="stylesheet" type="text/css" href="/blog.css" />
+		<link rel="stylesheet" type="text/css" href="/prettify.css" />
+		<script type="text/javascript" src="/js/jquery.js"></script>
+	</head>
+	<body >
+		<% if(article!=null&&article.field==4){%>
+		<%- partial('module/nav',{currNav:5}) %>
+		<%}else{%>
+		<%- partial('module/nav',{currNav:2}) %>
+		<%}%>
+		
+		<div class="con11" style="margin:20px auto 0; ">
+			<section class="con8 fn-left">
+				<% if(article!=null){%>
+				<article class="article">
+					<header class="article-hd">
+						<h3><span class="title"><%= article.title%></span></h3>
+						<%if(article.field!=4){%>
+						<div class="article-info">
+							<p>发布时间：<%= common.format_date(article.createTime)%> | 分类：<%= config.fieldList[article.field?article.field:0]%>	| 阅读次数：<%= article.visitCount%></p>
+						</div>
+						<%}%>
+					</header>
+					<div class="article-con">
+						<%- article.content%>
+					</div>
+				</article>
+				<div id="disqus_thread"></div>
+				<script type="text/javascript">
+        		var disqus_shortname = 'niued'; // required: replace example with your forum shortname
+
+			    (function() {
+			        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			    })();
+				</script>
+				<%}else{%>
+					<%= error%>
+				<%}%>
+			</section>
+			<%- partial('module/aside') %>
+			<div class="fn-clear"></div>
+		</div>
+		<%- partial('module/footer') %>
+		
+		<script type="text/javascript" src="/js/slides.min.jquery.js"></script>
+		<script src="/js/prettify.js"></script>
+		<script>
+		$(function(){
+			prettyPrint();
+			
+		});
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>后台</title>
+		<style>
+		
+		</style>
+	</head>
+	<body>
+		<form method="post" action="/suggestion/addsugmore">
+			<label>
+				姓名：<input type="text" name="author" />
+			</label>
+			<textarea id="myEditor" name="content" cols="5" rows="5">
+				<% if(sug.length){%>
+				<%- sug[0].content %>
+				<%}%>
+			</textarea>
+			<input type="submit"  />
+		</form>
+		<script type="text/javascript" src="/editor_config.js"></script>
+		<script type="text/javascript" src="/editor_all.js"></script>
+		<link rel="stylesheet" href="/themes/default/ueditor.css"/>
+		<script>
+			var editor = new baidu.editor.ui.Editor();
+    		editor.render("myEditor");
+		</script>
+	</body>
+</html>

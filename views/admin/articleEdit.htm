@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title><% if(config.title_name){%><%= config.title_name%><%}%></title>
+		<link rel="stylesheet" type="text/css" href="/base.css" />
+		<link rel="stylesheet" type="text/css" href="/common.css" />
+	</head>
+	<body>
+
+		<%- partial('module/nav',{currNav:6}) %>
+		<style>
+		.content{
+			margin:0 auto;
+		}
+		
+		
+		.admin-con{
+		
+		}
+		.admin-con h3{
+			font:18px bold;
+			margin:10px;
+		}
+		.table{
+			width: 100%;
+		}
+		.table-bordered {
+			border-collapse: separate;
+			border-radius: 4px 4px 4px 4px;
+			border:1px solid #ddd;
+		}
+		.table th{
+			line-height: 18px;
+		    padding: 8px;
+		    text-align: center;
+		}
+		.table td {
+		    border-top: 1px solid #DDDDDD;
+		    line-height: 18px;
+		    padding: 8px;
+		    text-align: left;
+		    vertical-align: top;
+		}
+		.table td,.table th{
+			border-right:1px solid #ddd;
+		}
+		.table tr:nth-child(2n){
+			background:#F9F9F9;
+		}
+		
+		#myEditor{
+			width:980px;
+			height:400px;
+		}
+		.tags{
+			margin:10px 0;
+		}
+		.tags li{
+			float:left; margin-right:20px;
+		}
+		</style>
+		<div class="con13 content">
+			<%- partial('module/adminnav',{navindex:2}) %>
+			<div class="admin-con con11 fn-right">
+				<h3 class="">写文章</h3>
+				<form method="post" enctype="multipart/form-data" action="/admin/article/edit">
+					<% if(article!=null){%>
+						<div>
+							<span>标题：<span></span><input type="text" name="title" value="<%= article.title%>" />
+							<input type="hidden" name="aid" value="<%= article._id%>">
+							<span>关键字：<span>
+							<input type="text" name="keyword" value="<%= article.keyWord%>">
+							<span>时间：<span>
+							<input type="text" name="createtime" value="<%= common.format_date(article.createTime)%>">
+						</div>
+						<textarea id="myEditor" name="content">
+							<%= article.content%>
+						</textarea>
+					<%}else{%>
+						<div>
+							<span>标题：<span><input type="text" name="title"/>
+							<span>关键字：<span>
+							<input type="text" name="keyword" value="">
+							<span>时间：<span>
+							<input type="text" name="createtime" value="">
+						</div>
+						<textarea id="myEditor" name="content">
+						</textarea>
+					<%}%>
+					<div class="fn-clear;"></div>
+					<div>
+					<select name="field">
+						<%for(var i=0;i<config.fieldList.length;i++){%>
+						<option value="<%= i%>" <% if(article!=null&&i==article.field){%>selected="selected"<%}%>><%= config.fieldList[i]%></option>
+						<%}%>
+					</select>
+					<select name="public">
+						<option value="0" <%if(article!=null&&article.isPublic){%>selected="selected"<%}%>>发布</option>
+						<option value="1" <%if(article!=null&&!article.isPublic){%>selected="selected"<%}%>>不发布</option>
+					</select>
+					<input type="text" name="viewimg" style="width:300px;" value="<%= article==null?"":article.viewImage%>" />
+					</div>
+					<div>
+						<span>标签：<input type="text" id="J_tagname" /><a href="javascript:;" class="J_addtag">添加标签</a></span>
+						<ul class="tags fn-clear" id="J_taglist">
+							<% for(var i=0;i<tags.length;i++){%>
+							<li><input type="checkbox" name="tag" <% if(tags[i].checked){%>checked="checked"<%}%> value="<%= tags[i]._id%>" /><%= tags[i].name%> <a href="javascript:;" data-id="<%= tags[i]._id%>" class="J_deltag">del</a></li>
+							<%}%>
+						</ul>
+					</div>
+					<div>
+						<input type="submit" value="提交" />
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="fn-clear"></div>
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/kindeditor/kindeditor.js"></script>
+		<link rel="stylesheet" type="text/css" href="/prettify.css" />
+		<script type="text/javascript" src="/js/prettify.js"></script>
+		<script>
+			$(function(){				
+				var editor;
+				KindEditor.ready(function(K) {
+					editor = K.create('textarea[name="content"]', {
+						allowFileManager : true
+					});
+					prettyPrint();
+				});
+				
+				$("a.J_deltag").live("click",function(){
+					var that = $(this);
+					$.ajax({
+						url: "/admin/deltag.json",
+						data:{tid:that.attr("data-id")},
+						type:"POST",
+						dataType:'JSON',
+						success: function(data){
+							that.parent("li").remove();
+						}
+					});
+				})
+				$("a.J_addtag").on("click",function(){
+					var that = $(this);
+					var tagname = $("#J_tagname").val().trim();
+					if(tagname){
+						$.ajax({
+							url: "/admin/addtag.json",
+							data:{name:tagname,desc:"暂无描述!"},
+							type:"POST",
+							dataType:'JSON',
+							success: function(data){
+								$("#J_taglist").append(getTagHtml(data.tag));
+							}
+						});
+					}
+				})
+				function getTagHtml(tag){
+					var html = [];
+					html.push('<li>');
+					html.push('<input type="checkbox" name="tag" checked="checked" value="'+tag._id+'" />');
+					html.push(tag.name);
+					html.push('<a href="javascript:;" data-id="'+tag._id+'" class="J_deltag">del</a>');
+					html.push('</li>');
+					return html.join('');
+				}
+				
+			})
+		</script>
+	</body>
+</html>
