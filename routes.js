@@ -1,13 +1,11 @@
 /**
  * @author djqq
  */
-var suggestion = require('./controller/suggestion.js');
-var replay = require('./controller/replay.js');
-var static = require('./controller/static.js');
 var user = require('./controller/user.js');
 var article = require('./controller/article.js');
 var tag = require('./controller/tag.js');
 var upload = require('./controller/upload.js');
+var rss  = require('./controller/rss.js');
 exports = module.exports = function(app){
 	//app.get('/suggestion/:page',suggestion.getList);
 	//app.post('/suggestion/addsug',suggestion.addSug);
@@ -43,6 +41,7 @@ exports = module.exports = function(app){
 	app.get('/blog_?:num?',article.index);
 	app.get('/post:aid',article.postDetail);
 	app.get('/about',article.about);
+	app.get('/feed',rss.getRss);
 	
 	
 	app.get('*',function(req,res){
